@@ -1,6 +1,7 @@
 import RPi.GPIO as GPIO
 import time
 
+RESETPin = 23   # Broadcom pin 23 (Pi pin 16)
 
 ADC_BUSY_Pin = 24     # Broadcom pin 24 (Pi pin 18)
 ADC_CONVST_Pin = 25   # Broadcom pin 25 (Pi pin 22)
@@ -32,6 +33,12 @@ class SpiBang:
         self.mode = 0   # 0000 00<polarity><phase>  2 LSBs determine polarity and phase of clock.
         GPIO.setmode(GPIO.BCM)
 
+        print('Resetting the A/D')
+        GPIO.output(RESETPin, GPIO.LOW)
+        time.sleep(.1)
+        GPIO.output(RESETPin, GPIO.HIGH)
+        time.sleep(.1)
+
 
     def open(self, bus, device):
         if bus == 0:
@@ -50,6 +57,8 @@ class SpiBang:
             self.spi_sclk_pin = SPI1_SCLK_Pin
             self.spi_mosi_pin = SPI1_MOSI_Pin
             self.spi_miso_pin = SPI1_MISO_Pin
+
+        GPIO.setup(RESETPin, GPIO.OUT)
 
         GPIO.setup(ADC_BUSY_Pin, GPIO.IN)
         GPIO.setup(ADC_CONVST_Pin, GPIO.OUT)
