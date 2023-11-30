@@ -33,7 +33,7 @@ try:
     # Read the selected conversion continuously
     while True:
         response0, response1 = spi.xfer2([0x0000, 0x0000, 0x0000, 0x0000,   0x0000, 0x0000, 0x0000, 0x0000])
-        time.sleep(.1)
+        time.sleep(.5)
 
 except KeyboardInterrupt:
     print('Interrupt')
