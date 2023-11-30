@@ -67,6 +67,8 @@ class SpiBang:
         GPIO.setup(self.spi_mosi_pin, GPIO.OUT)
         GPIO.setup(self.spi_miso_pin, GPIO.IN)
         GPIO.setup(ADC_SER1W_Pin, GPIO.IN)
+        GPIO.setup(ADC_SDOB_Pin, GPIO.IN)
+
 
         self.spi_idle()
 
