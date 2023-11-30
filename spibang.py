@@ -114,7 +114,6 @@ class SpiBang:
                 time.sleep(self.min_period_sec / 2)
 
                 bitmask = bitmask >> 1
-            print()
 
             result0buffer.append(result0)
             result1buffer.append(result1)
