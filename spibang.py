@@ -83,7 +83,7 @@ class SpiBang:
 
     def xfer2(self, outbuffer):
         # Always start with a conversion.
-        print('Starting tansaction with a conversion', end=" ")
+        print('Starting transaction with a conversion', end=" ")
         GPIO.output(ADC_CONVST_Pin, GPIO.HIGH)
         GPIO.output(ADC_CONVST_Pin, GPIO.LOW)
         while GPIO.input(ADC_BUSY_Pin):
