@@ -96,7 +96,7 @@ class SpiBang:
         result0buffer = []
         result1buffer = []
         for value in outbuffer:
-            print('Sending: ' + hex(value), end=" ")
+            print('Sending: {:04x}'.format(value), end=" ")
             result0 = 0
             result1 = 0
 
@@ -117,7 +117,7 @@ class SpiBang:
 
             result0buffer.append(result0)
             result1buffer.append(result1)
-            print('   Receiving   0: ' + hex(result0) + '   1: ' + hex(result1))
+            print('   Receiving   0: {:04x}  1: {:04x}'.format(result0, result1))
 
         print('Deselecting ADC board, transaction done')
         print()            
