@@ -34,6 +34,8 @@ class SpiBang:
         GPIO.setmode(GPIO.BCM)
 
         print('Resetting the A/D')
+        GPIO.setup(RESETPin, GPIO.OUT)
+
         GPIO.output(RESETPin, GPIO.LOW)
         time.sleep(.1)
         GPIO.output(RESETPin, GPIO.HIGH)
@@ -57,8 +59,6 @@ class SpiBang:
             self.spi_sclk_pin = SPI1_SCLK_Pin
             self.spi_mosi_pin = SPI1_MOSI_Pin
             self.spi_miso_pin = SPI1_MISO_Pin
-
-        GPIO.setup(RESETPin, GPIO.OUT)
 
         GPIO.setup(ADC_BUSY_Pin, GPIO.IN)
         GPIO.setup(ADC_CONVST_Pin, GPIO.OUT)
