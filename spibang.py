@@ -11,7 +11,7 @@ SPI0_CS0_Pin = 8      # Broadcom pin 8  (Pi pin 24)
 SPI0_CS1_Pin = 7      # Broadcom pin 7  (Pi pin 26)
 SPI0_SCLK_Pin = 11    # Broadcom pin 11 (Pi pin 23)
 SPI0_MOSI_Pin = 10    # Broadcom pin 10 (Pi pin 19)
-SPI0_MISO_Pin = 9     # Broadcom pin 9  (Pi pin 21)
+SPI0_MISO_Pin = 9     # Broadcom pin 9  (Pi pin 21)  Also called by the ADC SDOA.
 ADC_SDOB_Pin = 22     # Broadcom pin 22 (Pi pin 15)
 
 SPI1_CS0_Pin = 18     # Broadcom pin 18 (Pi pin 12)
@@ -83,18 +83,20 @@ class SpiBang:
 
     def xfer2(self, outbuffer):
         # Always start with a conversion.
+        print('Starting tansaction with a conversion', end=" ")
         GPIO.output(ADC_CONVST_Pin, GPIO.HIGH)
         GPIO.output(ADC_CONVST_Pin, GPIO.LOW)
         while GPIO.input(ADC_BUSY_Pin):
             time.sleep(.001)
 
+        print('Selecting ADC board for transaction')
         GPIO.output(self.spi_mosi_pin, GPIO.HIGH)
         GPIO.output(self.spi_cs_pin, GPIO.LOW)
 
         result0buffer = []
         result1buffer = []
         for value in outbuffer:
-            print('Sending: ' + hex(value), end=' ')
+            print('Sending: ' + hex(value), end=" ")
             result0 = 0
             result1 = 0
 
@@ -117,7 +119,9 @@ class SpiBang:
             result0buffer.append(result0)
             result1buffer.append(result1)
             print('   Receiving   0: ' + hex(result0) + '   1: ' + hex(result1))
-            
+
+        print('Deselecting ADC board, transaction done')
+        print()            
         self.spi_idle()
         return result0buffer, result1buffer
 
