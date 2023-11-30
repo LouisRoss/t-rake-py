@@ -14,10 +14,23 @@ spi.mode = 0   # 0000 00<polarity><phase>  2 LSBs determine polarity and phase o
 
 
 try:
+    # Change channel register to select the self-test channel (0xbbbb and 0x5555)
     response0, response1 = spi.xfer2([0x86bb])
+
+    # Read all registers back, just for display
     response0, response1 = spi.xfer2([0x0400, 0x0600, 0x0800, 0x0a00, 0x0c00, 0x0e00, 0xe00])
+
+    # Read the selected self-test conversion a few times
     response0, response1 = spi.xfer2([0x0000, 0x0000, 0x0000])
     
+    # Change channel register to select the channel 0 for both A and B
+    response0, response1 = spi.xfer2([0x8600])
+
+    # Read the selected conversion continuously
+    while True:
+        response0, response1 = spi.xfer2([0x0000])
+        time.sleep(.1)
+
 except KeyboardInterrupt:
     print('Interrupt')
     
