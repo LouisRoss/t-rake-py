@@ -5,7 +5,7 @@ RESETPin = 23   # Broadcom pin 23 (Pi pin 16)
 
 ADC_BUSY_Pin = 24     # Broadcom pin 24 (Pi pin 18)
 ADC_CONVST_Pin = 25   # Broadcom pin 25 (Pi pin 22)
-ADC_SER1W_Pin = 23    # Broadcom pin 23 (Pi pin 16)
+ADC_SER1W_Pin = 4     # Broadcom pin 4  (Pi pin 7)
 
 SPI0_CS0_Pin = 8      # Broadcom pin 8  (Pi pin 24)
 SPI0_CS1_Pin = 7      # Broadcom pin 7  (Pi pin 26)
@@ -35,7 +35,9 @@ class SpiBang:
 
         print('Resetting the A/D')
         GPIO.setup(RESETPin, GPIO.OUT)
+        GPIO.setup(ADC_SER1W_Pin, GPIO.OUT)
 
+        GPIO.output(ADC_SER1W_Pin, GPIO.LOW)
         GPIO.output(RESETPin, GPIO.LOW)
         time.sleep(.1)
         GPIO.output(RESETPin, GPIO.HIGH)
@@ -66,7 +68,6 @@ class SpiBang:
         GPIO.setup(self.spi_sclk_pin, GPIO.OUT)
         GPIO.setup(self.spi_mosi_pin, GPIO.OUT)
         GPIO.setup(self.spi_miso_pin, GPIO.IN)
-        GPIO.setup(ADC_SER1W_Pin, GPIO.IN)
         GPIO.setup(ADC_SDOB_Pin, GPIO.IN)
 
 

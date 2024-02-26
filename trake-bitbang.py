@@ -6,7 +6,7 @@ import spibang
 spi = spibang.SpiBang()
 
 # Open a connection to a specific bus and device (chip select pin)
-spi.open(bus=0, device=0)
+spi.open(bus=1, device=0)
 
 # Set SPI speed and mode
 spi.max_speed_hz = 10000
